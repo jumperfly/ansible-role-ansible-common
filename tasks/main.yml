@@ -1,12 +1,31 @@
-- name: Ensure python-setuptools is installed
+- name: Get list of installed packages
+  package_facts:
+- name: Fail if setuptools OS package is installed
+  fail:
+    msg: Use of OS python-setuptools is not supported, please remove it
+  when: ansible_facts.packages['python-setuptools'] is defined
+- name: Ensure python is installed
   package:
-    name: python-setuptools
+    name: python
     state: present
-- name: Ensure pip is installed
-  easy_install:
-    name: pip
-    state: present
-- name: Ensure pip docker package is installed
+- name: Check if the pip command is available
+  command: which pip
+  register: which_result
+  changed_when: false
+  failed_when: which_result.rc not in [0,1]
+- name: Install pip
+  when: which_result.rc != 0
+  block:
+    - name: Download pip installer
+      get_url:
+        url: https://bootstrap.pypa.io/get-pip.py
+        dest: /tmp/get-pip.py
+    - name: Execute pip installer
+      command: python /tmp/get-pip.py
+- name: Ensure required pip packages are installed
   pip:
-    name: docker
+    name: "{{ item }}"
     state: latest
+  loop:
+    - docker
+    - openshift
