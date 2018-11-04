@@ -1,6 +1,12 @@
 - name: Ensure python-setuptools is installed
-  package: name=python-setuptools state=present
+  package:
+    name: python-setuptools
+    state: present
 - name: Ensure pip is installed
-  easy_install: name=pip state=present
+  easy_install:
+    name: pip
+    state: present
 - name: Ensure pip docker package is installed
-  pip: name=docker state=latest
+  pip:
+    name: docker
+    state: latest
