@@ -1,5 +1,4 @@
-- hosts: all
+- hosts: host1
   become: yes
-  gather_facts: false
   roles:
   - jumperfly.ansible_common
