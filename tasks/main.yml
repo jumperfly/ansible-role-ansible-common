@@ -27,5 +27,6 @@
     name: "{{ item }}"
     state: latest
   loop:
+    - pyopenssl
     - docker
     - openshift
