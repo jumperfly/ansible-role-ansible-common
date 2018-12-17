@@ -24,9 +24,8 @@
       command: python /tmp/get-pip.py
 - name: Ensure required pip packages are installed
   pip:
-    name: "{{ item }}"
+    name:
+      - pyopenssl==18.0.0
+      - docker==3.6.0
+      - openshift==0.8.1
     state: present
-  loop:
-    - pyopenssl==18.0.0
-    - docker==3.6.0
-    - openshift==0.8.1
