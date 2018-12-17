@@ -25,8 +25,8 @@
 - name: Ensure required pip packages are installed
   pip:
     name: "{{ item }}"
-    state: latest
+    state: present
   loop:
-    - pyopenssl
-    - docker
-    - openshift
+    - pyopenssl==18.0.0
+    - docker==3.6.0
+    - openshift==0.8.1
