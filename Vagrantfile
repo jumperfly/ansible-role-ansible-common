@@ -3,8 +3,9 @@
 
 Vagrant.configure("2") do |config|
   config.vm.box = "jumperfly/centos-7"
-  config.vm.box_version = "1809.01.01"
+  config.vm.box_version = "1902.01.01"
   config.vm.box_check_update = false
+  config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=770"]
   config.ssh.insert_key = false
 
   config.vm.provider "virtualbox" do |v|
@@ -24,7 +25,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "controller" do |config|
     config.vm.box = "jumperfly/centos-7-ansible"
-    config.vm.box_version = "1804.02.01"
+    config.vm.box_version = "1902.01.01"
     config.vm.network "private_network", ip: "192.168.99.200"
     config.vm.provision "shell", inline: "mkdir -p /etc/ansible/roles && ln -sfn /vagrant /etc/ansible/roles/jumperfly.ansible_common"
 
